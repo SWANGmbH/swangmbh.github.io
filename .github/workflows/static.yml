@@ -37,21 +37,21 @@ jobs:
         uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.HOTLINE_SWITCH_TOKEN_SECRET }}
-      - run: git clone git@github.com:SWANGmbH/int.swan.clt-apps.hotline_switch.git int.swan.clt-apps.hotline_switch
+      - run: git clone git@github.com:SWANGmbH/int.swan.clt-apps.hotline_switch.git hotline_switch
       - uses: subosito/flutter-action@v1
         with:
           channel: 'stable'
       - name: Install Dependency
-        working-directory: client
+        working-directory: hotline_switch
         run: flutter pub get
       - name: Build Web Release
-        working-directory: client
+        working-directory: hotline_switch
         run: flutter build web --release --build-name=${{  github.ref_name }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
           # Upload entire repository
-          path: './build/web'
+          path: './hotline_switch/build/web'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
