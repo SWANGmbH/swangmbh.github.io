@@ -47,11 +47,17 @@ jobs:
       - name: Build Web Release
         working-directory: hotline_switch
         run: flutter build web --release --build-name=${{  github.ref_name }} --no-tree-shake-icons
+      - name: make release folder
+        run: mkdir ./release
+      - name: make hotline_switch folder
+        run: mkdir ./release/hotline_switch
+      - name: copy into release folder
+        run: cp -R ./hotline_switch/build/web/* ./release/hotline_switch
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
           # Upload entire repository
-          path: './hotline_switch/build/web'
+          path: './release'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
