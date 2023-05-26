@@ -46,7 +46,7 @@ jobs:
         run: flutter pub get
       - name: Build Web Release
         working-directory: hotline_switch
-        run: flutter build web --release --build-name=${{  github.ref_name }}
+        run: flutter build web --release --build-name=${{  github.ref_name }} --no-tree-shake-icons
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
