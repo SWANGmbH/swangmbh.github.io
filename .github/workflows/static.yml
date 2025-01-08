@@ -46,7 +46,7 @@ jobs:
         run: flutter pub get
       - name: Build Web Release
         working-directory: hotline_switch
-        run: flutter build web --release --build-name=${{  github.ref_name }} --no-tree-shake-icons --base-href '/hotline_switch/'
+        run: flutter build web --wasm --release --build-name=${{  github.ref_name }} --no-tree-shake-icons --base-href '/hotline_switch/'
       - name: make release folder
         run: mkdir ./release
       - name: make hotline_switch folder
