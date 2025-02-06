@@ -54,10 +54,10 @@ jobs:
       - name: copy into release folder
         run: cp -R ./hotline_switch/build/web/* ./release/hotline_switch
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3.0.1
         with:
           # Upload entire repository
           path: './release'
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4.0.5
