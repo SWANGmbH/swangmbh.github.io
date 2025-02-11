@@ -53,6 +53,8 @@ jobs:
         run: mkdir ./release/hotline_switch
       - name: copy into release folder
         run: cp -R ./hotline_switch/build/web/* ./release/hotline_switch
+      - name: copy firebase sw
+        run: cp ./hotline_switch/build/web/firebase-messaging-sw.js ./release/firebase-messaging-sw.js
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3.0.1
         with:
