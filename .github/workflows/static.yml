@@ -37,24 +37,23 @@ jobs:
         uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.HOTLINE_SWITCH_TOKEN_SECRET }}
-      - run: git clone git@github.com:SWANGmbH/int.swan.clt-apps.hotline_switch.git hotline_switch
-      - uses: subosito/flutter-action@v1
-        with:
-          channel: 'stable'
+      - run: git clone git@github.com:SWANGmbH/int.swan.clt-apps.hotline_switch.git -b v2 hotline_switch
       - name: Install Dependency
         working-directory: hotline_switch
-        run: flutter pub get
+        run: npm i
       - name: Build Web Release
         working-directory: hotline_switch
-        run: flutter build web --release --build-name=${{  github.ref_name }} --no-tree-shake-icons --base-href '/hotline_switch/'
+        env:
+         BASE_PATH: '/hotline_switch/'
+        run: npm run build
       - name: make release folder
         run: mkdir ./release
       - name: make hotline_switch folder
         run: mkdir ./release/hotline_switch
       - name: copy into release folder
-        run: cp -R ./hotline_switch/build/web/* ./release/hotline_switch
+        run: cp -R ./hotline_switch/build/* ./release/hotline_switch
       - name: copy firebase sw
-        run: cp ./hotline_switch/build/web/firebase-messaging-sw.js ./release/firebase-messaging-sw.js
+        run: cp ./hotline_switch/firebase-messaging-sw.js ./release/firebase-messaging-sw.js
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3.0.1
         with:
